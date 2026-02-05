@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire d'Orientation - Rooting For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #6b9e78;
+            --accent-gold: #d4a574;
+            --earth-brown: #8b6f47;
+            --cream: #f8f5f0;
+            --warm-white: #fefdfb;
+            --dark-text: #2a2a2a;
+            --soft-gray: #707070;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: var(--dark-text);
+            background: #f5f5f5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        nav .container {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo::after {
+            content: '🌱';
+            margin-left: 0.4rem;
+            font-size: 1.1rem;
+        }
+
+        .nav-link {
+            color: var(--soft-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+
+        /* Container */
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            text-align: center;
+            background: white;
+            border-radius: 0;
+            padding: 2.5rem 1.5rem;
+            animation: fadeInUp 0.6s ease-out;
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-screen h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .welcome-screen .subtitle {
+            font-size: 1.1rem;
+            color: var(--earth-brown);
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-screen p {
+            font-size: 0.95rem;
+            color: var(--soft-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 0 0.5rem;
+        }
+
+        .feature {
+            text-align: center;
+            background: var(--cream);
+            padding: 1.2rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .feature h3 {
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .feature p {
+            font-size: 0.75rem;
+            color: var(--soft-gray);
+            margin: 0;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-family: 'Work Sans', sans-serif;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(45, 95, 63, 0.25);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            display: none;
+            animation: fadeInUp 0.4s ease-out;
+            background: #f5f5f5;
+            min-height: calc(100vh - 60px);
+        }
+
+        .quiz-container.active {
+            display: block;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: #f5f5f5;
+            border-radius: 0;
+            padding: 2rem 1.5rem 5rem;
+            margin-bottom: 0;
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            flex-shrink: 0;
+            padding-top: 2rem;
+        }
+
+        .question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            line-height: 1.3;
+            font-weight: 600;
+        }
+
+        /* Choices */
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex: 1;
+            align-content: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .choice-card {
+            background: #fafafa;
+            border: 3px solid #d0d0d0;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .choice-card:hover {
+            border-color: var(--light-green);
+            box-shadow: 0 4px 15px rgba(107, 158, 120, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .choice-card:active {
+            transform: scale(0.98);
+        }
+
+        .choice-card.selected {
+            border-color: var(--primary-green);
+            background: rgba(45, 95, 63, 0.04);
+            box-shadow: 0 4px 20px rgba(45, 95, 63, 0.15);
+        }
+
+        .choice-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .choice-icon {
+            font-size: 3.5rem;
+            flex-shrink: 0;
+        }
+
+        .choice-text {
+            width: 100%;
+        }
+
+        .choice-text h3 {
+            font-size: 1.6rem;
+            color: var(--primary-green);
+            margin-bottom: 0;
+            font-weight: 700;
+        }
+
+        /* Skip button between choices */
+        .skip-between {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .btn-skip-inline {
+            background: white;
+            color: var(--soft-gray);
+            border: 2px solid #d0d0d0;
+            padding: 0.7rem 2.5rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-skip-inline:hover {
+            background: #f5f5f5;
+            border-color: var(--soft-gray);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-skip-inline:active {
+            transform: translateY(0);
+        }
+
+        /* Floating Results Button */
+        .btn-show-results {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gold);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            box-shadow: 0 6px 25px rgba(212, 165, 116, 0.5);
+            z-index: 100;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            max-width: 500px;
+        }
+
+        .btn-show-results:hover {
+            background: var(--earth-brown);
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 165, 116, 0.6);
+        }
+
+        .btn-show-results:active {
+            transform: translateX(-50%) translateY(-1px);
+        }
+
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            animation: fadeInUp 0.4s ease-out;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .results-screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .results-wrapper {
+            background: #f5f5f5;
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            margin: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .results-header {
+            text-align: center;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            padding: 2.5rem 1.5rem 2rem;
+            margin-bottom: 0;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .close-results {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: var(--soft-gray);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .close-results:hover {
+            background: var(--cream);
+            color: var(--primary-green);
+        }
+
+        .results-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 0.8rem;
+        }
+
+        .results-header p {
+            font-size: 1rem;
+            color: var(--soft-gray);
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 0;
+            padding: 1.5rem;
+            background: #f5f5f5;
+        }
+
+        .result-card {
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid var(--accent-gold);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.4s ease-out both;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .result-card:nth-child(1) { animation-delay: 0.1s; border-left-color: var(--primary-green); }
+        .result-card:nth-child(2) { animation-delay: 0.2s; border-left-color: var(--light-green); }
+        .result-card:nth-child(3) { animation-delay: 0.3s; border-left-color: var(--accent-gold); }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-rank {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            width: 50px;
+            height: 50px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .result-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            margin-bottom: 0.2rem;
+        }
+
+        .result-match {
+            color: var(--light-green);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .result-description {
+            color: var(--soft-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--cream);
+            color: var(--primary-green);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .result-actions-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-result-action {
+            background: var(--primary-green);
+            color: white;
+            border: 2px solid var(--primary-green);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 140px;
+            box-shadow: 0 2px 8px rgba(45, 95, 63, 0.2);
+        }
+
+        .btn-result-action:hover {
+            background: var(--light-green);
+            border-color: var(--light-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 95, 63, 0.3);
+        }
+
+        .btn-result-action:active {
+            transform: translateY(0);
+        }
+
+        .btn-activities {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gold);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            box-shadow: 0 6px 25px rgba(212, 165, 116, 0.5);
+            z-index: 100;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-activities:hover {
+            background: var(--earth-brown);
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 165, 116, 0.6);
+        }
+
+        .btn-activities:active {
+            transform: translateX(-50%) translateY(-1px);
+        }
+
+        /* Modal for activities and paths */
+        .info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .info-modal.active {
+            display: flex;
+        }
+
+        .info-modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .info-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--cream);
+        }
+
+        .info-modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--soft-gray);
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .close-modal:hover {
+            background: var(--cream);
+            color: var(--primary-green);
+        }
+
+        .activities-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .activities-list li {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: var(--cream);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .activities-list li::before {
+            content: '✓';
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .path-section {
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            background: var(--cream);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .path-section h3 {
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .path-section p {
+            color: var(--dark-text);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .all-activities-section {
+            margin-bottom: 2rem;
+        }
+
+        .all-activities-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-green);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--cream);
+        }
+
+        @media (max-width: 500px) {
+            .info-modal-content {
+                padding: 2rem 1.5rem;
+                max-height: 90vh;
+            }
+
+            .info-modal-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        .results-actions {
+            text-align: center;
+            margin-top: 0;
+            padding: 2rem 1.5rem;
+            background: white;
+            border-radius: 0 0 24px 24px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .results-actions h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin-bottom: 0.8rem;
+        }
+
+        .results-actions p {
+            color: var(--soft-gray);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-direction: column;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-secondary:active {
+            background: var(--cream);
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature {
+                padding: 1rem;
+            }
+
+            .choice-icon {
+                font-size: 2rem;
+            }
+        }
+
+        /* Country Selection Modal */
+        .country-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .country-modal.hidden {
+            display: none;
+        }
+
+        .country-modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .country-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .country-modal p {
+            color: var(--soft-gray);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .country-select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Work Sans', sans-serif;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .country-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .country-select option {
+            padding: 1rem;
+        }
+
+        @media (max-width: 500px) {
+            .country-modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .country-modal h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--cream);
+            border-top-color: var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Info Modal (Activities / Path) -->
+    <div id="infoModal" class="info-modal">
+        <div class="info-modal-content">
+            <div class="info-modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="close-modal" onclick="closeInfoModal()">×</button>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Country Selection Modal -->
+    <div id="countryModal" class="country-modal">
+        <div class="country-modal-content">
+            <h2>🌍 Bienvenue !</h2>
+            <p>Sélectionnez votre pays pour une expérience personnalisée</p>
+            <select id="countrySelect" class="country-select">
+                <option value="">-- Choisissez votre pays --</option>
+                <option value="FR">🇫🇷 France</option>
+                <option value="BE">🇧🇪 Belgique</option>
+                <option value="CH">🇨🇭 Suisse</option>
+                <option value="CA">🇨🇦 Canada</option>
+                <option value="LU">🇱🇺 Luxembourg</option>
+                <option value="MA">🇲🇦 Maroc</option>
+                <option value="SN">🇸🇳 Sénégal</option>
+                <option value="CI">🇨🇮 Côte d'Ivoire</option>
+                <option value="TN">🇹🇳 Tunisie</option>
+                <option value="DZ">🇩🇿 Algérie</option>
+                <option value="OTHER">🌐 Autre</option>
+            </select>
+            <button class="btn btn-primary" onclick="saveCountry()" id="countryBtn" disabled>Continuer</button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">Rooting For You</a>
+            <a href="/" class="nav-link">← Retour à l'accueil</a>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="welcome-screen">
+            <h1>Découvrez votre voie professionnelle</h1>
+            <p class="subtitle">Un questionnaire évolutif qui grandit avec vous</p>
+            
+            <p>Répondez à des questions en choisissant entre deux options. Vos préférences s'affinent avec le temps, et vos résultats s'actualisent automatiquement pour refléter votre évolution.</p>
+
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Résultats personnalisés</h3>
+                    <p>Top 3 des métiers adaptés</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🔄</span>
+                    <h3>Évolutif</h3>
+                    <p>S'adapte à vos changements</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">✨</span>
+                    <h3>Gratuit</h3>
+                    <p>Sans engagement</p>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="startQuiz()">Commencer le questionnaire</button>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer" class="quiz-container">
+            <!-- Question Card -->
+            <div class="question-card">
+                <div class="question-header">
+                    <h2 class="question-text" id="questionText">Chargement...</h2>
+                </div>
+
+                <div class="choices-container" id="choicesContainer">
+                    <!-- Choices will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Floating Results Button -->
+            <button class="btn-show-results" onclick="showResults()">📋 Activités correspondantes</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="results-screen">
+            <div class="results-wrapper">
+                <div class="results-header">
+                    <button class="close-results" onclick="closeResults()">×</button>
+                    <h1>🎉 Vos résultats actuels</h1>
+                    <p>Basés sur vos choix jusqu'à présent</p>
+                </div>
+
+                <div class="results-grid" id="resultsContainer">
+                    <!-- Results will be inserted here -->
+                </div>
+
+                <div class="results-actions">
+                    <h3>Continuez à explorer !</h3>
+                    <p>Répondez à plus de questions pour affiner vos résultats</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="closeResults()">Continuer le questionnaire</button>
+                        <a href="mailto:contact@rootingforyou.fr" class="btn btn-secondary">Prendre rendez-vous</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Questions database - objets OU verbes d'action uniquement
+        const questions = [
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "⌨️", title: "Clavier", description: "", careers: ["dev", "data", "designer"] },
+                    { icon: "📞", title: "Téléphone", description: "", careers: ["commerce", "rh"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🎨", title: "Créer", description: "", careers: ["designer", "architecte", "marketing"] },
+                    { icon: "📊", title: "Analyser", description: "", careers: ["data", "consultant", "finance"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🚗", title: "Voiture", description: "", careers: ["commerce", "consultant", "architecte"] },
+                    { icon: "🪑", title: "Bureau", description: "", careers: ["dev", "data", "finance"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🎤", title: "Présenter", description: "", careers: ["enseignement", "commerce", "marketing"] },
+                    { icon: "📝", title: "Écrire", description: "", careers: ["recherche", "consultant", "data"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "👥", title: "Équipe", description: "", careers: ["manager", "rh", "consultant"] },
+                    { icon: "🎧", title: "Casque", description: "", careers: ["dev", "data", "designer"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "💡", title: "Innover", description: "", careers: ["designer", "marketing", "dev"] },
+                    { icon: "📐", title: "Règle", description: "", careers: ["architecte", "finance", "data"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🏥", title: "Hôpital", description: "", careers: ["sante", "recherche"] },
+                    { icon: "🏢", title: "Gratte-ciel", description: "", careers: ["manager", "finance", "commerce"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "📱", title: "Smartphone", description: "", careers: ["dev", "designer", "marketing"] },
+                    { icon: "📄", title: "Documents", description: "", careers: ["consultant", "finance", "rh"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🎯", title: "Vendre", description: "", careers: ["commerce", "manager", "consultant"] },
+                    { icon: "🧩", title: "Résoudre", description: "", careers: ["dev", "data", "recherche"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🌍", title: "Planète", description: "", careers: ["environnement", "sante", "enseignement"] },
+                    { icon: "💰", title: "Argent", description: "", careers: ["finance", "commerce", "consultant"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "👔", title: "Diriger", description: "", careers: ["manager", "consultant", "finance"] },
+                    { icon: "🔬", title: "Microscope", description: "", careers: ["recherche", "data", "sante"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "✏️", title: "Dessiner", description: "", careers: ["designer", "architecte"] },
+                    { icon: "🧮", title: "Calculer", description: "", careers: ["finance", "data", "consultant"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🎓", title: "Enseigner", description: "", careers: ["enseignement", "rh", "consultant"] },
+                    { icon: "💻", title: "Programmer", description: "", careers: ["dev", "data", "designer"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🤝", title: "Négocier", description: "", careers: ["commerce", "rh", "manager"] },
+                    { icon: "📊", title: "Tableaux", description: "", careers: ["data", "consultant", "finance"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🎬", title: "Caméra", description: "", careers: ["marketing", "designer"] },
+                    { icon: "📋", title: "Organiser", description: "", careers: ["manager", "rh", "consultant"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🌳", title: "Nature", description: "", careers: ["environnement", "architecte"] },
+                    { icon: "🏙️", title: "Ville", description: "", careers: ["architecte", "manager", "consultant"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🎨", title: "Palette", description: "", careers: ["designer", "marketing"] },
+                    { icon: "📈", title: "Graphiques", description: "", careers: ["finance", "data", "manager"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🔧", title: "Réparer", description: "", careers: ["dev", "consultant"] },
+                    { icon: "🗣️", title: "Convaincre", description: "", careers: ["commerce", "marketing", "manager"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "📚", title: "Livres", description: "", careers: ["recherche", "enseignement", "consultant"] },
+                    { icon: "⚡", title: "Rapidité", description: "", careers: ["commerce", "marketing", "dev"] }
+                ]
+            },
+            {
+                question: "Choisissez :",
+                choices: [
+                    { icon: "🏗️", title: "Construire", description: "", careers: ["architecte", "manager", "dev"] },
+                    { icon: "💬", title: "Discuter", description: "", careers: ["rh", "commerce", "enseignement"] }
+                ]
+            }
+        ];
+
+        // Career profiles database
+        const careers = {
+            dev: {
+                title: "Développeur / Développeuse",
+                description: "Vous aimez créer, résoudre des problèmes techniques et travailler avec les technologies. Le développement logiciel vous permet de concevoir des solutions innovantes et de voir vos créations prendre vie.",
+                tags: ["Tech", "Création", "Logique", "Innovation"],
+                activities: [
+                    "Écrire du code informatique",
+                    "Créer des applications web ou mobile",
+                    "Résoudre des bugs et optimiser le code",
+                    "Travailler en équipe avec d'autres développeurs",
+                    "Concevoir l'architecture de logiciels",
+                    "Tester et déboguer des programmes"
+                ]
+            },
+            data: {
+                title: "Data Analyst / Scientist",
+                description: "Votre esprit analytique et votre passion pour les chiffres font de vous un excellent candidat pour l'analyse de données. Transformer les données en insights stratégiques vous passionne.",
+                tags: ["Analyse", "Statistiques", "Stratégie", "Tech"],
+                activities: [
+                    "Analyser de grandes quantités de données",
+                    "Créer des tableaux de bord et visualisations",
+                    "Identifier des tendances et patterns",
+                    "Présenter des insights aux équipes",
+                    "Utiliser Python, R ou SQL",
+                    "Construire des modèles prédictifs"
+                ]
+            },
+            designer: {
+                title: "Designer UX/UI",
+                description: "Votre créativité et votre sens de l'esthétique combinés à une approche centrée utilisateur font de vous un designer naturel. Vous créez des expériences visuelles mémorables.",
+                tags: ["Créativité", "Design", "User-centric", "Visuel"],
+                activities: [
+                    "Concevoir des interfaces utilisateur",
+                    "Créer des maquettes et prototypes",
+                    "Réaliser des tests utilisateurs",
+                    "Définir l'identité visuelle",
+                    "Utiliser Figma, Adobe XD",
+                    "Collaborer avec les développeurs"
+                ]
+            },
+            manager: {
+                title: "Manager / Chef de projet",
+                description: "Votre leadership naturel et votre capacité à coordonner des équipes vers un objectif commun font de vous un excellent manager. Vous savez tirer le meilleur de chacun.",
+                tags: ["Leadership", "Organisation", "Équipe", "Stratégie"],
+                activities: [
+                    "Diriger et motiver une équipe",
+                    "Planifier et coordonner les projets",
+                    "Prendre des décisions stratégiques",
+                    "Gérer les budgets et ressources",
+                    "Animer des réunions d'équipe",
+                    "Évaluer les performances"
+                ]
+            },
+            rh: {
+                title: "Responsable RH / Recrutement",
+                description: "Votre empathie et votre intérêt pour le développement des talents font de vous un professionnel RH idéal. Vous aidez les personnes à s'épanouir dans leur carrière.",
+                tags: ["Humain", "Recrutement", "Développement", "Écoute"],
+                activities: [
+                    "Recruter et sélectionner des candidats",
+                    "Mener des entretiens d'embauche",
+                    "Gérer les relations employés",
+                    "Développer les compétences internes",
+                    "Organiser des formations",
+                    "Résoudre des conflits"
+                ]
+            },
+            consultant: {
+                title: "Consultant / Consultante",
+                description: "Votre capacité d'analyse, votre adaptabilité et votre expertise font de vous un consultant recherché. Vous aidez les organisations à résoudre leurs défis stratégiques.",
+                tags: ["Conseil", "Stratégie", "Expertise", "Business"],
+                activities: [
+                    "Analyser les problématiques clients",
+                    "Proposer des solutions stratégiques",
+                    "Réaliser des audits et diagnostics",
+                    "Présenter des recommandations",
+                    "Accompagner le changement",
+                    "Rédiger des rapports d'expertise"
+                ]
+            },
+            commerce: {
+                title: "Commercial / Commerciale",
+                description: "Votre aisance relationnelle et votre goût du challenge font de vous un commercial performant. Convaincre et créer de la valeur pour vos clients vous stimule.",
+                tags: ["Relation client", "Négociation", "Vente", "Dynamisme"],
+                activities: [
+                    "Prospecter de nouveaux clients",
+                    "Négocier des contrats",
+                    "Présenter des produits/services",
+                    "Fidéliser la clientèle",
+                    "Atteindre des objectifs de vente",
+                    "Gérer un portefeuille clients"
+                ]
+            },
+            marketing: {
+                title: "Responsable Marketing",
+                description: "Votre créativité stratégique et votre compréhension du marché font de vous un excellent marketeur. Créer des campagnes impactantes est votre force.",
+                tags: ["Communication", "Créativité", "Stratégie", "Digital"],
+                activities: [
+                    "Élaborer des stratégies marketing",
+                    "Créer des campagnes publicitaires",
+                    "Gérer les réseaux sociaux",
+                    "Analyser les tendances du marché",
+                    "Organiser des événements",
+                    "Mesurer le ROI des actions"
+                ]
+            },
+            architecte: {
+                title: "Architecte",
+                description: "Votre vision spatiale et votre créativité technique font de vous un architecte talentueux. Concevoir des espaces qui allient esthétique et fonctionnalité vous passionne.",
+                tags: ["Design", "Technique", "Créativité", "Spatial"],
+                activities: [
+                    "Concevoir des plans de bâtiments",
+                    "Rencontrer les clients",
+                    "Superviser les chantiers",
+                    "Créer des maquettes 3D",
+                    "Respecter les normes",
+                    "Coordonner les corps de métier"
+                ]
+            },
+            sante: {
+                title: "Professionnel de santé",
+                description: "Votre empathie et votre désir d'aider les autres font de vous un excellent professionnel de santé. Prendre soin et améliorer la vie des patients est votre vocation.",
+                tags: ["Soin", "Empathie", "Santé", "Impact social"],
+                activities: [
+                    "Soigner et accompagner les patients",
+                    "Établir des diagnostics",
+                    "Prescrire des traitements",
+                    "Écouter et rassurer",
+                    "Travailler en équipe médicale",
+                    "Se former continuellement"
+                ]
+            },
+            enseignement: {
+                title: "Enseignant / Formateur",
+                description: "Votre passion pour la transmission et votre pédagogie font de vous un enseignant inspirant. Voir vos élèves progresser est votre plus grande récompense.",
+                tags: ["Pédagogie", "Transmission", "Patience", "Impact"],
+                activities: [
+                    "Préparer des cours et supports",
+                    "Enseigner devant une classe",
+                    "Évaluer les élèves",
+                    "Adapter sa pédagogie",
+                    "Gérer la dynamique de groupe",
+                    "Suivre la progression individuelle"
+                ]
+            },
+            finance: {
+                title: "Analyste Financier",
+                description: "Votre rigueur analytique et votre compréhension des marchés font de vous un expert financier. Les chiffres et la stratégie financière n'ont pas de secrets pour vous.",
+                tags: ["Finance", "Analyse", "Stratégie", "Rigueur"],
+                activities: [
+                    "Analyser les marchés financiers",
+                    "Élaborer des prévisions budgétaires",
+                    "Conseiller sur les investissements",
+                    "Créer des reportings financiers",
+                    "Gérer les risques",
+                    "Optimiser la rentabilité"
+                ]
+            },
+            environnement: {
+                title: "Expert Environnement",
+                description: "Votre engagement écologique et votre expertise technique font de vous un acteur clé de la transition environnementale. Protéger la planète est votre mission.",
+                tags: ["Écologie", "Durabilité", "Impact", "Terrain"],
+                activities: [
+                    "Réaliser des études d'impact",
+                    "Conseiller sur l'écologie",
+                    "Mesurer les émissions",
+                    "Proposer des solutions durables",
+                    "Sensibiliser aux enjeux",
+                    "Travailler sur le terrain"
+                ]
+            },
+            recherche: {
+                title: "Chercheur / Chercheuse",
+                description: "Votre curiosité intellectuelle et votre rigueur scientifique font de vous un chercheur passionné. Repousser les frontières de la connaissance vous anime.",
+                tags: ["Science", "Recherche", "Innovation", "Analyse"],
+                activities: [
+                    "Mener des expériences scientifiques",
+                    "Publier des articles de recherche",
+                    "Analyser des résultats",
+                    "Présenter lors de conférences",
+                    "Collaborer avec d'autres chercheurs",
+                    "Demander des financements"
+                ]
+            }
+        };
+
+        // Educational paths by country and career
+        const educationalPaths = {
+            FR: {
+                dev: {
+                    college: "Au collège : S'intéresser aux mathématiques et à la technologie. Rejoindre des clubs de programmation si disponibles.",
+                    lycee: "Au lycée : Bac général avec spécialités Mathématiques et NSI (Numérique et Sciences Informatiques) OU Bac STI2D option SIN.",
+                    postbac: "Après le bac : BTS SIO, DUT/BUT Informatique (3 ans), École d'ingénieur (5 ans), ou Licence Informatique puis Master.",
+                    formations: "Formations complémentaires : Bootcamps (Le Wagon, Wild Code School), certifications (AWS, Azure), auto-formation"
+                },
+                data: {
+                    college: "Au collège : Développer ses compétences en mathématiques et logique.",
+                    lycee: "Au lycée : Bac général avec spécialités Mathématiques et NSI ou Mathématiques et Physique-Chimie.",
+                    postbac: "Après le bac : BUT Science des données, École d'ingénieur spé. data, Master Big Data, ou Licence Maths/Info puis Master Data Science.",
+                    formations: "Formations complémentaires : Certifications (Google Data Analytics, IBM Data Science), bootcamps spécialisés"
+                },
+                manager: {
+                    college: "Au collège : Participer aux délégués de classe, clubs, projets d'équipe.",
+                    lycee: "Au lycée : Tous bacs acceptés. Privilégier les options de sciences économiques et sociales.",
+                    postbac: "Après le bac : École de commerce (3-5 ans), IAE, Licence Éco-Gestion puis Master Management, ou BUT GEA.",
+                    formations: "Formations complémentaires : MBA, formations en leadership, certifications en gestion de projet (PMP, Prince2)"
+                }
+            },
+            BE: {
+                dev: {
+                    college: "Durant le secondaire inférieur : S'intéresser aux maths et sciences. Participer aux activités informatiques.",
+                    lycee: "Enseignement secondaire supérieur : Option sciences ou technique de transition/qualification informatique.",
+                    postbac: "Enseignement supérieur : Bachelier en Informatique (Haute École, 3 ans) ou Master universitaire (5 ans).",
+                    formations: "Formations complémentaires : BeCode, certifications professionnelles, formation continue"
+                },
+                data: {
+                    college: "Durant le secondaire inférieur : Focus sur les mathématiques et sciences.",
+                    lycee: "Enseignement secondaire supérieur : Option sciences ou mathématiques fortes.",
+                    postbac: "Enseignement supérieur : Bachelier puis Master en Data Science, Statistiques ou Informatique.",
+                    formations: "Formations complémentaires : Certifications internationales, formations continues spécialisées"
+                },
+                manager: {
+                    college: "Durant le secondaire inférieur : Développer l'esprit d'équipe et le leadership.",
+                    lycee: "Enseignement secondaire supérieur : Toutes options, privilégier sciences économiques.",
+                    postbac: "Enseignement supérieur : Bachelier en Gestion/Commerce puis Master, ou École de commerce.",
+                    formations: "Formations complémentaires : MBA, Executive Education, certifications en management"
+                }
+            },
+            CA: {
+                dev: {
+                    college: "Au secondaire : Participer aux cours de mathématiques et sciences. S'initier à la programmation.",
+                    lycee: "Cégep : DEC en Sciences informatiques et mathématiques ou Techniques de l'informatique.",
+                    postbac: "Université : BAC en Informatique/Génie logiciel (3-4 ans), puis éventuellement Maîtrise.",
+                    formations: "Formations complémentaires : Bootcamps, certifications tech, programmes d'alternance"
+                },
+                data: {
+                    college: "Au secondaire : Excellence en mathématiques et sciences.",
+                    lycee: "Cégep : DEC en Sciences de la nature ou Sciences informatiques et mathématiques.",
+                    postbac: "Université : BAC en Statistiques, Mathématiques appliquées ou Informatique, puis Maîtrise en Data Science.",
+                    formations: "Formations complémentaires : Programmes de certificat, bootcamps data, MOOCs"
+                },
+                manager: {
+                    college: "Au secondaire : S'impliquer dans des activités parascolaires, développer le leadership.",
+                    lycee: "Cégep : DEC en Sciences humaines profil Administration.",
+                    postbac: "Université : BAC en Administration/Gestion (HEC, universités), puis MBA optionnel.",
+                    formations: "Formations complémentaires : MBA, programmes executives, certifications PMP"
+                }
+            },
+            CH: {
+                dev: {
+                    college: "École obligatoire : S'intéresser aux mathématiques et à l'informatique.",
+                    lycee: "Post-obligatoire : Gymnase/Collège (Maturité gymnasiale option scientifique) OU CFC informaticien + Maturité professionnelle.",
+                    postbac: "Hautes Écoles : Bachelor en Informatique (HES ou Université, 3 ans), puis Master (2 ans).",
+                    formations: "Formations complémentaires : Formation continue ES, certifications professionnelles, bootcamps"
+                },
+                data: {
+                    college: "École obligatoire : Excellence en mathématiques.",
+                    lycee: "Post-obligatoire : Maturité gymnasiale option maths-physique OU Maturité professionnelle technique.",
+                    postbac: "Hautes Écoles : Bachelor puis Master en Data Science, Statistiques ou Mathématiques appliquées.",
+                    formations: "Formations complémentaires : CAS/DAS/MAS en Data Science, certifications internationales"
+                },
+                manager: {
+                    college: "École obligatoire : Développer les compétences relationnelles et d'organisation.",
+                    lycee: "Post-obligatoire : Maturité gymnasiale OU CFC commerce + Maturité professionnelle.",
+                    postbac: "Hautes Écoles : Bachelor HES en Économie d'entreprise ou Université en Gestion, puis Master/MBA.",
+                    formations: "Formations complémentaires : EMBA, formations continues HES, certifications en management"
+                }
+            },
+            OTHER: {
+                dev: {
+                    college: "Formation initiale : Se familiariser avec les mathématiques et la logique.",
+                    lycee: "Études secondaires : Suivre des cours de mathématiques et sciences. Apprendre à coder en autodidacte.",
+                    postbac: "Études supérieures : Licence/Bachelor en Informatique (3-4 ans), puis Master optionnel.",
+                    formations: "Formations complémentaires : Bootcamps en ligne (freeCodeCamp, Codecademy), certifications tech, projets personnels"
+                },
+                data: {
+                    college: "Formation initiale : Développer les compétences en mathématiques.",
+                    lycee: "Études secondaires : Excellence en mathématiques et statistiques.",
+                    postbac: "Études supérieures : Licence en Mathématiques/Statistiques/Informatique, puis Master en Data Science.",
+                    formations: "Formations complémentaires : MOOCs (Coursera, edX), certifications (Google, IBM), projets pratiques"
+                },
+                manager: {
+                    college: "Formation initiale : Développer le leadership et la communication.",
+                    lycee: "Études secondaires : Toutes filières, privilégier l'économie si disponible.",
+                    postbac: "Études supérieures : Licence en Gestion/Administration/Commerce, puis Master/MBA.",
+                    formations: "Formations complémentaires : MBA, formations en ligne, certifications en gestion de projet"
+                }
+            }
+        };
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let careerScores = {};
+        let userCountry = null;
+
+        // Initialize career scores
+        Object.keys(careers).forEach(career => {
+            careerScores[career] = 0;
+        });
+
+        // Country selection
+        document.getElementById('countrySelect').addEventListener('change', function() {
+            const countryBtn = document.getElementById('countryBtn');
+            countryBtn.disabled = this.value === '';
+        });
+
+        function saveCountry() {
+            const select = document.getElementById('countrySelect');
+            userCountry = select.value;
+            if (userCountry) {
+                document.getElementById('countryModal').classList.add('hidden');
+                localStorage.setItem('userCountry', userCountry);
+            }
+        }
+
+        // Check if country is already saved
+        window.addEventListener('load', function() {
+            const savedCountry = localStorage.getItem('userCountry');
+            if (savedCountry) {
+                userCountry = savedCountry;
+                document.getElementById('countryModal').classList.add('hidden');
+            }
+        });
+
+        // Start quiz
+        function startQuiz() {
+            document.getElementById('welcomeScreen').classList.remove('active');
+            document.getElementById('quizContainer').classList.add('active');
+            showQuestion();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            
+            document.getElementById('questionText').textContent = question.question;
+            
+            const choicesContainer = document.getElementById('choicesContainer');
+            choicesContainer.innerHTML = '';
+            
+            // First choice
+            const choiceCard1 = document.createElement('div');
+            choiceCard1.className = 'choice-card';
+            if (answers[currentQuestionIndex] === 0) {
+                choiceCard1.classList.add('selected');
+            }
+            
+            choiceCard1.innerHTML = `
+                <div class="choice-content">
+                    <span class="choice-icon">${question.choices[0].icon}</span>
+                    <div class="choice-text">
+                        <h3>${question.choices[0].title}</h3>
+                    </div>
+                </div>
+            `;
+            
+            choiceCard1.onclick = () => selectChoice(0);
+            choicesContainer.appendChild(choiceCard1);
+            
+            // Skip button between choices
+            const skipDiv = document.createElement('div');
+            skipDiv.className = 'skip-between';
+            skipDiv.innerHTML = '<button class="btn-skip-inline" onclick="skipQuestion()">Passer</button>';
+            choicesContainer.appendChild(skipDiv);
+            
+            // Second choice
+            const choiceCard2 = document.createElement('div');
+            choiceCard2.className = 'choice-card';
+            if (answers[currentQuestionIndex] === 1) {
+                choiceCard2.classList.add('selected');
+            }
+            
+            choiceCard2.innerHTML = `
+                <div class="choice-content">
+                    <span class="choice-icon">${question.choices[1].icon}</span>
+                    <div class="choice-text">
+                        <h3>${question.choices[1].title}</h3>
+                    </div>
+                </div>
+            `;
+            
+            choiceCard2.onclick = () => selectChoice(1);
+            choicesContainer.appendChild(choiceCard2);
+        }
+
+        // Select a choice
+        function selectChoice(index) {
+            answers[currentQuestionIndex] = index;
+            
+            // Update UI immediately
+            document.querySelectorAll('.choice-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            
+            // Update career scores
+            const question = questions[currentQuestionIndex];
+            const selectedChoice = question.choices[index];
+            selectedChoice.careers.forEach(career => {
+                careerScores[career]++;
+            });
+            
+            // Wait a brief moment to show selection, then move to next question
+            setTimeout(() => {
+                nextQuestion();
+            }, 300);
+        }
+
+        // Navigation functions
+        function nextQuestion() {
+            // Loop back to beginning if we reach the end
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+            } else {
+                currentQuestionIndex = 0; // Recommencer au début
+            }
+            showQuestion();
+        }
+
+        function skipQuestion() {
+            // Same behavior - loop infinitely
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+            } else {
+                currentQuestionIndex = 0;
+            }
+            showQuestion();
+        }
+
+        // Show results (called manually via button)
+        function showResults() {
+            // Don't hide the quiz container
+            document.getElementById('resultsScreen').classList.add('active');
+            
+            // Sort careers by score
+            const sortedCareers = Object.entries(careerScores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+            
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '';
+            
+            sortedCareers.forEach(([careerKey, score], index) => {
+                const career = careers[careerKey];
+                const matchPercentage = Math.round((score / questions.length) * 100);
+                
+                const resultCard = document.createElement('div');
+                resultCard.className = 'result-card';
+                resultCard.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-rank">${index + 1}</div>
+                        <div class="result-title">
+                            <h2>${career.title}</h2>
+                            <p class="result-match">${matchPercentage}% de correspondance</p>
+                        </div>
+                    </div>
+                    <p class="result-description">${career.description}</p>
+                    <div class="result-tags">
+                        ${career.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="result-actions-buttons">
+                        <button class="btn-result-action" onclick="showActivities('${careerKey}')">📋 Activités</button>
+                        <button class="btn-result-action" onclick="showPath('${careerKey}')">🎓 Comment le devenir ?</button>
+                    </div>
+                `;
+                
+                resultsContainer.appendChild(resultCard);
+            });
+
+            // Add floating "See all activities" button
+            const existingBtn = document.querySelector('.btn-activities');
+            if (existingBtn) {
+                existingBtn.remove();
+            }
+            
+            const activitiesBtn = document.createElement('button');
+            activitiesBtn.className = 'btn-activities';
+            activitiesBtn.textContent = '📋 Toutes les activités';
+            activitiesBtn.onclick = showAllActivities;
+            document.body.appendChild(activitiesBtn);
+        }
+
+        function closeResults() {
+            document.getElementById('resultsScreen').classList.remove('active');
+            
+            // Remove the floating activities button
+            const floatingBtn = document.querySelector('.btn-activities');
+            if (floatingBtn) {
+                floatingBtn.remove();
+            }
+        }
+
+        function showActivities(careerKey) {
+            const career = careers[careerKey];
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = `📋 ${career.title}`;
+            
+            let html = '<ul class="activities-list">';
+            career.activities.forEach(activity => {
+                html += `<li>${activity}</li>`;
+            });
+            html += '</ul>';
+            
+            modalBody.innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        function showPath(careerKey) {
+            const career = careers[careerKey];
+            const country = userCountry || 'OTHER';
+            const path = educationalPaths[country]?.[careerKey] || educationalPaths['OTHER'][careerKey];
+            
+            if (!path) {
+                alert(`Parcours non disponible pour ce métier. Veuillez nous contacter pour plus d'informations.`);
+                return;
+            }
+            
+            const countryName = {
+                'FR': '🇫🇷 France',
+                'BE': '🇧🇪 Belgique', 
+                'CH': '🇨🇭 Suisse',
+                'CA': '🇨🇦 Canada',
+                'OTHER': '🌐 International'
+            }[country] || 'votre pays';
+            
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = `🎓 ${career.title}`;
+            
+            let html = `<p style="text-align: center; color: var(--soft-gray); margin-bottom: 2rem; font-size: 1.05rem;">Parcours pour ${countryName}</p>`;
+            
+            html += `
+                <div class="path-section">
+                    <h3>📚 Collège / Secondaire</h3>
+                    <p>${path.college}</p>
+                </div>
+                <div class="path-section">
+                    <h3>🎒 Lycée / Formation supérieure</h3>
+                    <p>${path.lycee}</p>
+                </div>
+                <div class="path-section">
+                    <h3>🎓 Études supérieures</h3>
+                    <p>${path.postbac}</p>
+                </div>
+                <div class="path-section">
+                    <h3>✨ Formations complémentaires</h3>
+                    <p>${path.formations}</p>
+                </div>
+            `;
+            
+            modalBody.innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        function showAllActivities() {
+            // Get top 3 careers
+            const sortedCareers = Object.entries(careerScores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+            
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = '📋 Toutes vos activités correspondantes';
+            
+            let html = '';
+            
+            sortedCareers.forEach(([careerKey, score], index) => {
+                const career = careers[careerKey];
+                html += `<div class="all-activities-section">`;
+                html += `<h3>${index + 1}. ${career.title}</h3>`;
+                html += '<ul class="activities-list">';
+                career.activities.forEach(activity => {
+                    html += `<li>${activity}</li>`;
+                });
+                html += '</ul></div>';
+            });
+            
+            modalBody.innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target === modal) {
+                closeInfoModal();
+            }
+        });
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            answers = [];
+            Object.keys(careers).forEach(career => {
+                careerScores[career] = 0;
+            });
+            
+            // Remove floating button if exists
+            const floatingBtn = document.querySelector('.btn-activities');
+            if (floatingBtn) {
+                floatingBtn.remove();
+            }
+            
+            document.getElementById('resultsScreen').classList.remove('active');
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('quizContainer').classList.add('active');
+            showQuestion();
+        }
+    </script>
+</body>
+</html>
