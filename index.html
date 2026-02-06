@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooting For You - Orientation Professionnelle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #6b9e78;
+            --accent-gold: #d4a574;
+            --earth-brown: #8b6f47;
+            --cream: #f8f5f0;
+            --warm-white: #fefdfb;
+            --dark-text: #2a2a2a;
+            --soft-gray: #707070;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: var(--dark-text);
+            background-color: var(--warm-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 253, 251, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '🌱';
+            margin-left: 0.5rem;
+            display: inline-block;
+            animation: grow 2s ease-in-out infinite;
+        }
+
+        @keyframes grow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--light-green);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(107, 158, 120, 0.08) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: var(--earth-brown);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--soft-gray);
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--light-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeIn 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .visual-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-green), var(--light-green), var(--accent-gold));
+        }
+
+        .stat-item {
+            margin-bottom: 2rem;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--soft-gray);
+            font-size: 1rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 5%;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--soft-gray);
+            font-size: 1.15rem;
+        }
+
+        .services-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--cream);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(107, 158, 120, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--light-green);
+            box-shadow: 0 15px 40px rgba(45, 95, 63, 0.15);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--soft-gray);
+            line-height: 1.7;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
+        }
+
+        .process-steps {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 3rem;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.2);
+        }
+
+        .step-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 0.8rem;
+        }
+
+        .step-content p {
+            color: var(--soft-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 8rem 5%;
+            background: white;
+        }
+
+        .testimonials-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--warm-white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border-left: 4px solid var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--light-green), var(--accent-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--primary-green);
+        }
+
+        .btn-light:hover {
+            background: var(--cream);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-text);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .step {
+                grid-template-columns: 1fr;
+            }
+
+            .step-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">Rooting For You</a>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#process">Notre Approche</a></li>
+                <li><a href="#temoignages">Témoignages</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Trouvez votre voie professionnelle</h1>
+                <p class="subtitle">On vous accompagne vers l'avenir</p>
+                <p>Découvrez vos talents, explorez vos passions et construisez un parcours professionnel qui vous ressemble. Parce que chaque personne mérite de s'épanouir dans son travail.</p>
+                <div class="cta-buttons">
+                    <a href="questionnaire.html" class="btn btn-primary">Faire le test gratuit</a>
+                    <a href="#services" class="btn btn-secondary">Découvrir nos services</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <p class="stat-label">Taux de satisfaction de nos accompagnés</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <p class="stat-label">Personnes accompagnées vers leur projet</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <p class="stat-label">Années d'expertise en orientation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Questionnaire Feature Section -->
+    <section style="padding: 6rem 5%; background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%); color: white;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 1.5rem;">🎯 Questionnaire d'Orientation Évolutif</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 1rem; opacity: 0.95; max-width: 700px; margin-left: auto; margin-right: auto;">Notre outil phare qui grandit avec vous</p>
+            <p style="font-size: 1.1rem; margin-bottom: 3rem; opacity: 0.9; max-width: 800px; margin-left: auto; margin-right: auto;">Un questionnaire sans fin qui s'adapte à votre évolution. Vos préférences changent avec le temps, vos résultats aussi. Basé sur vos choix entre objets, lieux, actions et outils du quotidien professionnel.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto 3rem;">
+                <div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔄</div>
+                    <p style="font-weight: 600; margin-bottom: 0.3rem;">Évolutif</p>
+                    <p style="opacity: 0.85; font-size: 0.95rem;">S'actualise avec vous</p>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
+                    <p style="font-weight: 600; margin-bottom: 0.3rem;">Résultats personnalisés</p>
+                    <p style="opacity: 0.85; font-size: 0.95rem;">Top 3 métiers adaptés</p>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✨</div>
+                    <p style="font-weight: 600; margin-bottom: 0.3rem;">100% gratuit</p>
+                    <p style="opacity: 0.85; font-size: 0.95rem;">Sans engagement</p>
+                </div>
+            </div>
+            <a href="questionnaire.html" class="btn" style="background: white; color: var(--primary-green); padding: 1.2rem 3rem; font-size: 1.2rem;">Démarrer le questionnaire →</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="section-header">
+            <h2>Nos Services</h2>
+            <p>Un accompagnement personnalisé à chaque étape de votre parcours professionnel</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" style="border: 3px solid var(--primary-green);">
+                <span class="service-icon">🎯</span>
+                <h3>Questionnaire d'orientation</h3>
+                <p>Notre outil gratuit et évolutif qui s'adapte à vos changements de préférences au fil du temps. Choisissez entre des objets, lieux et actions du quotidien professionnel.</p>
+                <a href="questionnaire.html" style="display: inline-block; margin-top: 1rem; color: var(--primary-green); font-weight: 600; text-decoration: none;">Faire le test →</a>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🤝</span>
+                <h3>Accompagnement personnalisé</h3>
+                <p>Basé sur vos résultats au questionnaire, nous vous accompagnons individuellement vers les métiers qui vous correspondent le mieux : orientation étudiante, reconversion professionnelle, ou exploration de nouvelles voies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process">
+        <div class="section-header">
+            <h2>Notre Approche</h2>
+            <p>Un processus structuré et bienveillant pour vous mener vers vos objectifs</p>
+        </div>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Questionnaire évolutif</h3>
+                    <p>Utilisez notre questionnaire gratuit sans limite de temps. À chaque réponse, affinez votre profil professionnel. Vos résultats s'actualisent en fonction de vos choix pour refléter l'évolution de vos préférences.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Analyse de vos résultats</h3>
+                    <p>Recevez vos résultats personnalisés avec le pourcentage de correspondance pour chaque métier identifié. Les métiers sont classés selon vos choix les plus votés et vos préférences dominantes.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Accompagnement personnalisé</h3>
+                    <p>Sur la base de vos résultats, nous vous proposons un accompagnement sur-mesure pour explorer en profondeur les métiers identifiés et construire votre projet professionnel concret.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Mise en action</h3>
+                    <p>Nous vous guidons dans les étapes concrètes : formations nécessaires, préparation aux entretiens, construction de votre réseau, et transition progressive vers votre nouveau métier.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="temoignages" class="testimonials">
+        <div class="section-header">
+            <h2>Ils nous font confiance</h2>
+            <p>Les témoignages de ceux qui ont trouvé leur voie avec nous</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Le questionnaire m'a permis de découvrir des métiers auxquels je n'avais jamais pensé. Les résultats étaient étonnamment précis ! L'accompagnement personnalisé qui a suivi m'a aidé à me lancer avec confiance."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SM</div>
+                    <div class="author-info">
+                        <h4>Sophie Martin</h4>
+                        <p>Reconversion dans le digital</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"En tant qu'étudiant perdu, le questionnaire a été un déclic. En 10 minutes, j'ai eu un classement clair de métiers qui me correspondent. J'ai ensuite pris rendez-vous pour approfondir mes résultats."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">TL</div>
+                    <div class="author-info">
+                        <h4>Thomas Leroy</h4>
+                        <p>Étudiant en école d'ingénieur</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Les résultats du questionnaire m'ont révélé des aspects de ma personnalité professionnelle que je sous-estimais. Le top 3 des métiers proposés était très pertinent. J'ai ensuite bénéficié d'un accompagnement ciblé."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">CB</div>
+                    <div class="author-info">
+                        <h4>Claire Beaumont</h4>
+                        <p>Manager RH</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-section">
+        <div class="cta-content">
+            <h2>Prêt à découvrir votre voie ?</h2>
+            <p>Commencez le questionnaire gratuit pour identifier les métiers qui vous correspondent. Vos résultats s'affinent avec chaque réponse et évoluent avec vous.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                <a href="questionnaire.html" class="btn btn-light">Démarrer le questionnaire</a>
+                <a href="nous-soutenir.html" class="btn" style="background: linear-gradient(135deg, #d4a574, #c49563); border: none;">💚 Nous soutenir</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Rooting For You</h3>
+                <p>Votre partenaire pour une orientation professionnelle réussie et épanouissante.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="questionnaire.html">Questionnaire d'orientation</a></li>
+                    <li><a href="#services">Accompagnement personnalisé</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <ul>
+                    <li><a href="#process">Notre approche</a></li>
+                    <li><a href="#temoignages">Témoignages</a></li>
+                    <li><a href="#">L'équipe</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:lysmickael@gmail.com">lysmickael@gmail.com</a></li>
+                    <li><a href="tel:+33616284591">06 16 28 45 91</a></li>
+                    <li>Tours, France</li>
+                    <li style="margin-top: 1rem;"><a href="nous-soutenir.html" style="color: #d4a574; font-weight: 600;">💚 Nous soutenir</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rooting For You. Tous droits réservés. | Mentions légales | Politique de confidentialité</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation for service cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .testimonial-card, .step').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

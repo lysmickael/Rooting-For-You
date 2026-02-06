@@ -1,0 +1,72 @@
+[[redirects]]
+  from = "/rooting-for-you.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rooting-for-you"
+  to = "/"
+  status = 301
+  force = true
+
+# Redirection pour gérer les URLs sans extension .html
+[[redirects]]
+  from = "/questionnaire"
+  to = "/questionnaire.html"
+  status = 200
+
+[[redirects]]
+  from = "/nous-soutenir"
+  to = "/nous-soutenir.html"
+  status = 200
+
+[[redirects]]
+  from = "/mentions-legales"
+  to = "/mentions-legales.html"
+  status = 200
+
+[[redirects]]
+  from = "/politique-confidentialite"
+  to = "/politique-confidentialite.html"
+  status = 200
+
+[[redirects]]
+  from = "/gestion-cookies"
+  to = "/gestion-cookies.html"
+  status = 200
+
+[[redirects]]
+  from = "/a-propos"
+  to = "/a-propos.html"
+  status = 200
+
+[[redirects]]
+  from = "/pourquoi-publicite"
+  to = "/pourquoi-publicite.html"
+  status = 200
+
+# Configuration pour les headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers spécifiques pour ads.txt
+[[headers]]
+  for = "/ads.txt"
+  [headers.values]
+    Content-Type = "text/plain"
+
+# Configuration du build
+[build]
+  publish = "."
+  
+# Gestion des erreurs 404
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
