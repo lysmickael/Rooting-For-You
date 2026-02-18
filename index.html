@@ -224,15 +224,16 @@
         }
 
         .btn-secondary {
-            background: transparent;
-            color: var(--primary-green);
-            border-color: var(--primary-green);
+            background: var(--primary-green);
+            color: white;
+            border: 2px solid var(--primary-green);
+            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.2);
         }
 
         .btn-secondary:hover {
-            background: var(--primary-green);
-            color: white;
+            background: var(--light-green);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.3);
         }
 
         .hero-visual {
@@ -548,12 +549,15 @@
         .btn-light {
             background: white;
             color: var(--primary-green);
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
         }
 
         .btn-light:hover {
             background: var(--cream);
+            color: var(--primary-green);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
         }
 
         /* Footer */
@@ -611,29 +615,76 @@
             }
 
             .hero-text h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
 
             nav ul {
-                gap: 1.5rem;
+                gap: 1rem;
+                font-size: 0.9rem;
             }
 
             .section-header h2 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
             }
         }
 
         @media (max-width: 640px) {
+            body {
+                font-size: 0.95rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            nav ul {
+                display: none; /* Masquer le menu sur mobile */
+            }
+
             .hero-text h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-text p {
+                font-size: 0.95rem;
             }
 
             .cta-buttons {
                 flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
             }
 
             .step {
                 grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1rem;
             }
 
             .step-number {
@@ -641,6 +692,74 @@
                 height: 55px;
                 padding: 0 1rem;
                 font-size: 1.8rem;
+                margin: 0 auto;
+            }
+
+            .step-content h3 {
+                font-size: 1.4rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-header p {
+                font-size: 0.95rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.9rem;
+            }
+
+            .service-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .testimonial-text {
+                font-size: 0.95rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-section ul {
+                text-align: center;
+            }
+
+            .cta-section {
+                padding: 4rem 5%;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+
+            /* Fix pour les sections avec images */
+            section div[style*="padding: 4rem 5%"] {
+                padding: 2rem 5% !important;
+            }
+
+            section h2[style*="font-size: 2.5rem"] {
+                font-size: 1.8rem !important;
+            }
+
+            section p[style*="font-size: 1.1rem"] {
+                font-size: 1rem !important;
             }
         }
 
@@ -651,8 +770,13 @@
                 flex-direction: column !important;
                 gap: 2rem !important;
             }
+
+            section div[style*="aspect-ratio"] {
+                min-height: 250px !important;
+            }
         }
     </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7955446846545566" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -950,7 +1074,7 @@
             <p>Commencez le questionnaire gratuit pour identifier les métiers qui vous correspondent. Vos résultats s'affinent avec chaque réponse et évoluent avec vous.</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
                 <a href="questionnaire.html" class="btn btn-light">Démarrer le questionnaire</a>
-                <a href="nous-soutenir.html" class="btn" style="background: white; color: var(--primary-green); border: 3px solid var(--primary-green); font-weight: 700;">💚 Nous soutenir</a>
+                <a href="nous-soutenir.html" class="btn btn-light">💚 Nous soutenir</a>
             </div>
         </div>
     </section>
@@ -981,7 +1105,7 @@
             <div class="footer-section">
                 <h3>Contact</h3>
                 <ul>
-                    <li><a href="mailto:lysmickael@gmail.com">lysmickael@gmail.com</a></li>
+                    <li><a href="/cdn-cgi/l/email-protection#ee82979d83878d858f8b82ae89838f8782c08d8183"><span class="__cf_email__" data-cfemail="45293c36282c262e242029052228242c296b262a28">[email&#160;protected]</span></a></li>
                     <li><a href="tel:+33616284591">06 16 28 45 91</a></li>
                     <li>Tours, France</li>
                     <li style="margin-top: 1rem;"><a href="nous-soutenir.html" style="color: #d4a574; font-weight: 600;">💚 Nous soutenir</a></li>
@@ -993,7 +1117,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1024,14 +1148,4 @@
                         entry.target.style.opacity = '1';
                         entry.target.style.transform = 'translateY(0)';
                     }, index * 100);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.service-card, .testimonial-card, .step').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
-</body>
-</html>
+                    observer.unobserve(en
