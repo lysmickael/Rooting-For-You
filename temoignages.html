@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Témoignages - Rooting For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #6b9e78;
+            --accent-gold: #d4a574;
+            --cream: #f8f5f0;
+            --dark-text: #2a2a2a;
+            --soft-gray: #707070;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: var(--dark-text);
+            background: var(--cream);
+            padding-top: 70px;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-icon { font-size: 1.8rem; }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .container {
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--soft-gray);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -0.2rem;
+            font-size: 3rem;
+            color: var(--light-green);
+            opacity: 0.3;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary-green);
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            color: var(--primary-green);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: var(--soft-gray);
+            font-size: 0.85rem;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 0.5rem 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            color: var(--soft-gray);
+            font-size: 0.7rem;
+            padding: 0.5rem 0.8rem;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-item.active { color: var(--primary-green); }
+        .nav-icon { font-size: 1.5rem; }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7955446846545566" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-icon">🌱</div>
+        <div class="logo-text">Rooting For You</div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Ils nous font confiance</h1>
+        <p class="page-subtitle">Les témoignages de ceux qui ont trouvé leur voie</p>
+
+        <div class="testimonial-card">
+            <p class="testimonial-text">Le questionnaire m'a permis de découvrir des métiers auxquels je n'avais jamais pensé. Les résultats étaient étonnamment précis !</p>
+            <div class="author">
+                <div class="author-avatar">SM</div>
+                <div class="author-info">
+                    <h4>Sophie Martin</h4>
+                    <p>Reconversion professionnelle</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <p class="testimonial-text">En tant qu'étudiant perdu, le questionnaire a été un déclic. En 10 minutes, j'ai eu un classement clair de métiers qui me correspondent.</p>
+            <div class="author">
+                <div class="author-avatar">TL</div>
+                <div class="author-info">
+                    <h4>Thomas Leroy</h4>
+                    <p>Étudiant en école d'ingénieur</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <p class="testimonial-text">Les résultats m'ont révélé des aspects de ma personnalité professionnelle que je sous-estimais. Le top 3 des métiers proposés était très pertinent.</p>
+            <div class="author">
+                <div class="author-avatar">CB</div>
+                <div class="author-info">
+                    <h4>Claire Bernard</h4>
+                    <p>Consultante RH</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>Accueil</span>
+        </a>
+        <a href="services.html" class="nav-item">
+            <span class="nav-icon">🎯</span>
+            <span>Services</span>
+        </a>
+        <a href="approche.html" class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span>Approche</span>
+        </a>
+        <a href="temoignages.html" class="nav-item active">
+            <span class="nav-icon">💬</span>
+            <span>Avis</span>
+        </a>
+    </nav>
+</body>
+</html>

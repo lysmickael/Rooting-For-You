@@ -2,17 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rooting For You - Orientation Professionnelle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rooting For You - Accueil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-green: #2d5f3f;
             --light-green: #6b9e78;
             --accent-gold: #d4a574;
-            --earth-brown: #8b6f47;
             --cream: #f8f5f0;
-            --warm-white: #fefdfb;
             --dark-text: #2a2a2a;
             --soft-gray: #707070;
         }
@@ -26,1338 +24,235 @@
         body {
             font-family: 'Work Sans', sans-serif;
             color: var(--dark-text);
-            background-color: var(--warm-white);
-            line-height: 1.7;
+            background: var(--cream);
+            padding-top: 70px;
+            padding-bottom: 80px;
             overflow-x: hidden;
         }
 
-        /* Navigation - Mobile First */
-        nav {
+        /* Header fixe */
+        .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background: white;
-            z-index: 1000;
             padding: 1rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav .container {
-            max-width: 100%;
-            margin: 0;
+            z-index: 1000;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0;
+            gap: 0.8rem;
         }
 
-        .logo {
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary-green);
         }
 
-        /* Hamburger Menu */
-        .menu-toggle {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-green);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        nav ul {
+        /* Bottom Navigation */
+        .bottom-nav {
             position: fixed;
-            top: 60px;
+            bottom: 0;
             left: 0;
             right: 0;
             background: white;
-            list-style: none;
-            padding: 1rem;
-            margin: 0;
-            display: none;
+            padding: 0.5rem 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
             flex-direction: column;
-            gap: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            max-height: calc(100vh - 60px);
-            overflow-y: auto;
-        }
-
-        nav ul.active {
-            display: flex;
-        }
-
-        nav ul li {
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        nav ul li:last-child {
-            border-bottom: none;
-        }
-
-        nav a {
-            display: block;
-            padding: 1rem;
-            color: var(--dark-text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-
-        nav a:hover, nav a:active {
-            background: var(--cream);
-            color: var(--primary-green);
-        }
-
-        /* Desktop navigation */
-        @media (min-width: 768px) {
-            nav {
-                top: 20px;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%);
-                width: calc(100% - 40px);
-                max-width: 1200px;
-                border-radius: 50px;
-                padding: 1rem 2rem;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
-            nav ul {
-                position: static;
-                display: flex !important;
-                flex-direction: row;
-                gap: 2rem;
-                padding: 0;
-                box-shadow: none;
-                background: transparent;
-            }
-
-            nav ul li {
-                border-bottom: none;
-            }
-
-            nav a {
-                padding: 0;
-            }
-
-            nav a:hover {
-                background: transparent;
-            }
-        }
-
-        /* Hero Section - Mobile First Full Screen */
-        .hero {
-            min-height: 100vh;
-            min-height: 100dvh; /* Dynamic viewport height for mobile */
-            display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
-            padding: 80px 1.5rem 2rem;
+            gap: 0.3rem;
+            text-decoration: none;
+            color: var(--soft-gray);
+            font-size: 0.7rem;
+            padding: 0.5rem 0.8rem;
+            transition: all 0.3s ease;
+            flex: 1;
         }
 
-        .hero-content {
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Container principal */
+        .container {
             width: 100%;
-            max-width: 100%;
+            padding: 0 1rem;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: calc(100vh - 150px);
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding: 2rem 0;
         }
 
-        .hero-text {
-            order: 1;
-        }
-
-        .hero-visual {
-            order: 2;
-            display: none; /* Caché sur mobile */
-        }
-
-        .hero-text h1 {
+        .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.2rem;
             color: var(--primary-green);
-            line-height: 1.2;
             margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
-        .hero-text .subtitle {
-            font-size: 1.2rem;
+        .hero .subtitle {
+            font-size: 1.3rem;
             color: var(--light-green);
             margin-bottom: 1rem;
             font-weight: 500;
         }
 
-        .hero-text p {
+        .hero p {
             font-size: 1rem;
             line-height: 1.6;
             color: var(--soft-gray);
             margin-bottom: 2rem;
         }
 
-        .cta-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-        }
-
-        /* Desktop Hero */
-        @media (min-width: 768px) {
-            .hero {
-                padding: 100px 5% 4rem;
-                min-height: 90vh;
-            }
-
-            .hero-content {
-                max-width: 1400px;
-                margin: 0 auto;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-                text-align: left;
-            }
-
-            .hero-visual {
-                display: block;
-            }
-
-            .hero-text h1 {
-                font-size: 3.5rem;
-            }
-
-            .cta-buttons {
-                flex-direction: row;
-                width: auto;
-            }
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(107, 158, 120, 0.08) 0%, transparent 70%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(5deg); }
-            66% { transform: translate(-20px, 20px) rotate(-5deg); }
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            color: var(--primary-green);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-text .subtitle {
-            font-size: 1.5rem;
-            color: var(--earth-brown);
-            margin-bottom: 2rem;
-            font-weight: 300;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .hero-text p {
-            font-size: 1.15rem;
-            color: var(--soft-gray);
-            margin-bottom: 2.5rem;
-            max-width: 540px;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            animation: fadeInUp 0.8s ease-out 0.8s both;
-        }
-
+        /* Boutons */
         .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: inline-block;
-            border: 2px solid transparent;
-        }
-
-        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
             background: var(--primary-green);
             color: white;
-            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.2);
+            text-decoration: none;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        .btn-primary:hover {
+        .btn:active {
+            transform: scale(0.98);
             background: var(--light-green);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.3);
         }
 
         .btn-secondary {
-            background: var(--primary-green);
-            color: white;
-            border: 2px solid var(--primary-green);
-            box-shadow: 0 4px 15px rgba(45, 95, 63, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: var(--light-green);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.3);
-        }
-
-        .hero-visual {
-            position: relative;
-            animation: fadeIn 1s ease-out 0.4s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .visual-card {
             background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
         }
 
-        .visual-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary-green), var(--light-green), var(--accent-gold));
+        /* Stats */
+        .stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .stat-item {
-            margin-bottom: 2rem;
-        }
-
-        .stat-item:last-child {
-            margin-bottom: 0;
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 2.5rem;
             color: var(--primary-green);
-            margin-bottom: 0.5rem;
+            font-weight: 700;
             display: block;
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
             color: var(--soft-gray);
-            font-size: 1rem;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 8rem 5%;
-            background: white;
-        }
-
-        /* Section Header - Mobile First */
-        .section-header {
-            text-align: center;
-            max-width: 100%;
-            margin: 0 0 2rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary-green);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-
-        .section-header p {
-            color: var(--soft-gray);
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        @media (min-width: 768px) {
-            .section-header {
-                max-width: 700px;
-                margin: 0 auto 5rem;
-            }
-
-            .section-header h2 {
-                font-size: 3rem;
-            }
-
-            .section-header p {
-                font-size: 1.15rem;
-            }
-        }
-
-        .services-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .service-card {
-            background: var(--cream);
-            border-radius: 16px;
-            padding: 2.5rem;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(107, 158, 120, 0.05) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--light-green);
-            box-shadow: 0 15px 40px rgba(45, 95, 63, 0.15);
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .service-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-        }
-
-        .service-card p {
-            color: var(--soft-gray);
-            line-height: 1.7;
-        }
-
-        /* Process Section */
-        .process {
-            padding: 8rem 5%;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
-        }
-
-        .process-steps {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            gap: 3rem;
-        }
-
-        .step {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .step-number {
-            width: auto;
-            min-width: 60px;
-            height: 60px;
-            padding: 0 1.2rem;
-            border-radius: 16px;
-            background: var(--cream);
-            color: var(--primary-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Work Sans', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            flex-shrink: 0;
-            border: 3px solid var(--primary-green);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(45, 95, 63, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .step-number::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(135deg, var(--light-green), var(--accent-gold));
-            opacity: 0.1;
-            border-radius: 14px;
-            z-index: -1;
-        }
-
-        .step:hover .step-number {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.25);
-        }
-
-        .step-content h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary-green);
-            margin-bottom: 0.8rem;
-        }
-
-        .step-content p {
-            color: var(--soft-gray);
-            font-size: 1.1rem;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 8rem 5%;
-            background: white;
-        }
-
-        .testimonials-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .testimonial-card {
-            background: var(--warm-white);
-            border-radius: 16px;
-            padding: 2.5rem;
-            border-left: 4px solid var(--accent-gold);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .testimonial-text {
-            font-size: 1.1rem;
-            color: var(--dark-text);
-            margin-bottom: 1.5rem;
-            font-style: italic;
-            line-height: 1.8;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--light-green), var(--accent-gold));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .author-info h4 {
-            color: var(--primary-green);
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .author-info p {
-            color: var(--soft-gray);
-            font-size: 0.9rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 8rem 5%;
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-        }
-
-        .btn-light {
-            background: white;
-            color: var(--primary-green);
-            border: 2px solid white;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-light:hover {
-            background: var(--cream);
-            color: var(--primary-green);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-text);
-            color: white;
-            padding: 4rem 5% 2rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 1.5rem;
-            color: var(--accent-gold);
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: var(--accent-gold);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Responsive */
-        /* ============================================
-           RESPONSIVE MOBILE FIRST
-           ============================================ */
-
-        /* Mobile par défaut (< 768px) */
-        body {
-            font-size: 1rem;
-            overflow-x: hidden;
-        }
-
-        /* Boutons mobile */
-        .btn {
-            width: 100%;
-            padding: 1.2rem;
-            font-size: 1.05rem;
-            text-align: center;
-            display: block;
-        }
-
-        /* Services grid mobile */
-        .services-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            padding: 2rem 1.5rem;
-        }
-
-        /* Process steps mobile */
-        .process-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 1rem;
-        }
-
-        .step-number {
-            margin: 0 auto;
-        }
-
-        /* Testimonials mobile */
-        .testimonials-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* Footer mobile */
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            text-align: center;
-        }
-
-        /* CTA section mobile */
-        .cta-section {
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            padding: 3rem 1.5rem;
-        }
-
-        /* Images sections mobile */
-        section div[style*="grid-template-columns: 1fr 1fr"] {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 2rem !important;
-        }
-
-        section[style*="padding: 4rem 5%"],
-        section[style*="padding: 6rem 5%"] {
-            padding: 3rem 1.5rem !important;
-        }
-
-        /* Fix pour les stats visual card */
-        .visual-card {
-            padding: 2rem 1.5rem !important;
-        }
-
-        .stat-item {
-            margin-bottom: 1.5rem;
-        }
-
-        /* Fix pour les grids avec repeat */
-        div[style*="grid-template-columns: repeat"] {
-            display: flex !important;
-            flex-direction: column !important;
-        }
-
-        /* ============================================
-           TABLET (768px - 1024px)
-           ============================================ */
-        @media (min-width: 768px) {
-            section[style*="padding: 4rem 5%"],
-            section[style*="padding: 6rem 5%"] {
-                padding: 4rem 5% !important;
-            }
-
-            section div[style*="grid-template-columns: 1fr 1fr"] {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr !important;
-            }
-
-            div[style*="grid-template-columns: repeat"] {
-                display: grid !important;
-            }
-            .services-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem;
-            }
-
-            .testimonials-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem;
-            }
-
-            .footer-content {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                text-align: left;
-            }
-
-            .btn {
-                width: auto;
-                display: inline-block;
-            }
-        }
-
-        /* ============================================
-           DESKTOP (1024px+)
-           ============================================ */
-        @media (min-width: 1024px) {
-            .services-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .testimonials-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .footer-content {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .process-steps {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 3rem;
-            }
-
-            .step {
-                flex-direction: row;
-                text-align: left;
-            }
-
-            .step-number {
-                margin: 0;
-            }
-
-            section div[style*="grid-template-columns: 1fr 1fr"] {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr !important;
-            }
+            font-size: 0.95rem;
         }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7955446846545566" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <span class="logo">Rooting For You</span>
-            <button class="menu-toggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul>
-                <li><a href="#services">Nos services</a></li>
-                <li><a href="#process">Notre Approche</a></li>
-                <li><a href="#temoignages">Témoignages</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <!-- Header fixe -->
+    <div class="header">
+        <div class="logo-icon">🌱</div>
+        <div class="logo-text">Rooting For You</div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <div class="hero">
+            <h1>Trouvez votre voie professionnelle</h1>
+            <p class="subtitle">On vous accompagne vers l'avenir</p>
+            <p>Découvrez vos talents, explorez vos passions et construisez un parcours professionnel qui vous ressemble.</p>
+            <a href="questionnaire.html" class="btn">Notre questionnaire</a>
+            <a href="services.html" class="btn btn-secondary">Découvrir nos services</a>
         </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number">95%</span>
+                <p class="stat-label">Taux de satisfaction</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="userCounter">0</span>
+                <p class="stat-label">Utilisateurs ont trouvé leur voie</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">✨</span>
+                <p class="stat-label">Solution innovante</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Accueil</span>
+        </a>
+        <a href="services.html" class="nav-item">
+            <span class="nav-icon">🎯</span>
+            <span>Services</span>
+        </a>
+        <a href="approche.html" class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span>Approche</span>
+        </a>
+        <a href="temoignages.html" class="nav-item">
+            <span class="nav-icon">💬</span>
+            <span>Avis</span>
+        </a>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Trouvez votre voie professionnelle</h1>
-                <p class="subtitle">On vous accompagne vers l'avenir</p>
-                <p>Découvrez vos talents, explorez vos passions et construisez un parcours professionnel qui vous ressemble. Parce que chaque personne mérite de s'épanouir dans son travail.</p>
-                <div class="cta-buttons">
-                    <a href="#services" class="btn btn-primary">Découvrir nos services</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="visual-card">
-                    <div class="stat-item">
-                        <span class="stat-number">95%</span>
-                        <p class="stat-label">Taux de satisfaction de nos accompagnés</p>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="userCounter">0</span>
-                        <p class="stat-label">Utilisateurs ont trouvé leur voie</p>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">✨</span>
-                        <p class="stat-label">Solution innovante d'orientation</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Image Section: Inspiration & Growth -->
-    <section style="padding: 4rem 5%; background: var(--cream);">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
-                <!-- Image placeholder -->
-                <div style="background: linear-gradient(135deg, rgba(107, 158, 120, 0.1), rgba(212, 165, 116, 0.1)); border-radius: 20px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.1);">
-                    <!-- SVG illustration représentant l'orientation professionnelle -->
-                    <svg viewBox="0 0 400 300" style="width: 100%; height: 100%; padding: 2rem;">
-                        <!-- Personne réfléchissant -->
-                        <circle cx="80" cy="120" r="30" fill="#2d5f3f" opacity="0.2"/>
-                        <rect x="55" y="150" width="50" height="80" rx="5" fill="#2d5f3f" opacity="0.2"/>
-                        
-                        <!-- Bulles de pensée avec icônes métiers -->
-                        <circle cx="180" cy="80" r="35" fill="#6b9e78" opacity="0.3"/>
-                        <text x="180" y="90" text-anchor="middle" font-size="30" opacity="0.6">💼</text>
-                        
-                        <circle cx="280" cy="100" r="30" fill="#d4a574" opacity="0.3"/>
-                        <text x="280" y="110" text-anchor="middle" font-size="25" opacity="0.6">🎨</text>
-                        
-                        <circle cx="320" cy="170" r="28" fill="#6b9e78" opacity="0.3"/>
-                        <text x="320" y="180" text-anchor="middle" font-size="24" opacity="0.6">⚕️</text>
-                        
-                        <!-- Chemin de croissance (flèche) -->
-                        <path d="M 100 250 Q 200 200, 350 220" stroke="#2d5f3f" stroke-width="3" fill="none" opacity="0.3" stroke-dasharray="5,5"/>
-                        <polygon points="350,220 345,215 355,215" fill="#2d5f3f" opacity="0.3"/>
-                        
-                        <!-- Étoiles/objectifs -->
-                        <text x="200" y="200" text-anchor="middle" font-size="35" opacity="0.4">⭐</text>
-                        <text x="340" y="240" text-anchor="middle" font-size="40" opacity="0.5">🌟</text>
-                    </svg>
-                </div>
-                
-                <!-- Texte inspirant -->
-                <div>
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-green); margin-bottom: 1.5rem;">Votre épanouissement commence ici</h2>
-                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--soft-gray); margin-bottom: 1rem;">
-                        Chaque personne possède un potentiel unique. Notre mission est de vous aider à le découvrir et à le cultiver.
-                    </p>
-                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--soft-gray);">
-                        Que vous soyez étudiant en quête de direction, professionnel en reconversion, ou simplement curieux d'explorer de nouvelles voies, nous vous accompagnons pas à pas vers votre épanouissement professionnel.
-                    </p>
-                    <div style="margin-top: 2rem; padding: 1.5rem; background: white; border-left: 4px solid var(--accent-gold); border-radius: 8px;">
-                        <p style="font-style: italic; color: var(--primary-green); margin: 0;">
-                            "Le succès, c'est d'aimer ce que l'on fait chaque jour."
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Questionnaire Feature Section -->
-    <section style="padding: 6rem 5%; background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%); color: white;">
-        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 1.5rem;">🎯 Questionnaire d'Orientation Évolutif</h2>
-            <p style="font-size: 1.3rem; margin-bottom: 1rem; opacity: 0.95; max-width: 700px; margin-left: auto; margin-right: auto;">Notre outil phare qui grandit avec vous</p>
-            <p style="font-size: 1.1rem; margin-bottom: 3rem; opacity: 0.9; max-width: 800px; margin-left: auto; margin-right: auto;">Un questionnaire sans fin qui s'adapte à votre évolution. Vos préférences changent avec le temps, vos résultats aussi. Basé sur vos choix entre objets, lieux, actions et outils du quotidien professionnel.</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto 3rem;">
-                <div>
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔄</div>
-                    <p style="font-weight: 600; margin-bottom: 0.3rem;">Évolutif</p>
-                    <p style="opacity: 0.85; font-size: 0.95rem;">S'actualise avec vous</p>
-                </div>
-                <div>
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
-                    <p style="font-weight: 600; margin-bottom: 0.3rem;">Résultats personnalisés</p>
-                    <p style="opacity: 0.85; font-size: 0.95rem;">Top 3 métiers adaptés</p>
-                </div>
-                <div>
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✨</div>
-                    <p style="font-weight: 600; margin-bottom: 0.3rem;">100% gratuit</p>
-                    <p style="opacity: 0.85; font-size: 0.95rem;">Sans engagement</p>
-                </div>
-            </div>
-            <a href="questionnaire.html" class="btn" style="background: white; color: var(--primary-green); padding: 1.2rem 3rem; font-size: 1.2rem;">Notre questionnaire →</a>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="section-header">
-            <h2>Nos Services</h2>
-            <p>Un accompagnement personnalisé à chaque étape de votre parcours professionnel</p>
-        </div>
-        <div class="services-grid">
-            <a href="questionnaire.html" style="text-decoration: none; color: inherit;">
-                <div class="service-card" style="border: 3px solid var(--primary-green); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                    <span class="service-icon">🎯</span>
-                    <h3>Questionnaire d'orientation</h3>
-                    <p>Notre outil gratuit et évolutif qui s'adapte à vos changements de préférences au fil du temps. Choisissez entre des objets, lieux et actions du quotidien professionnel.</p>
-                    <span style="display: inline-block; margin-top: 1rem; color: var(--primary-green); font-weight: 600;">Faire le test →</span>
-                </div>
-            </a>
-            <div class="service-card">
-                <span class="service-icon">🤝</span>
-                <h3>Accompagnement personnalisé</h3>
-                <p>Basé sur vos résultats au questionnaire, nous vous accompagnons individuellement vers les métiers qui vous correspondent le mieux : orientation étudiante, reconversion professionnelle, ou exploration de nouvelles voies.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section id="process" class="process">
-        <div class="section-header">
-            <h2>Notre Approche</h2>
-            <p>Un processus structuré et bienveillant pour vous mener vers vos objectifs</p>
-        </div>
-        <div class="process-steps">
-            <div class="step">
-                <div class="step-number">📝</div>
-                <div class="step-content">
-                    <h3>Questionnaire évolutif</h3>
-                    <p>Utilisez notre questionnaire gratuit sans limite de temps. À chaque réponse, affinez votre profil professionnel. Vos résultats s'actualisent en fonction de vos choix pour refléter l'évolution de vos préférences.</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">📊</div>
-                <div class="step-content">
-                    <h3>Analyse de vos résultats</h3>
-                    <p>Recevez vos résultats personnalisés avec le pourcentage de correspondance pour chaque métier identifié. Les métiers sont classés selon vos choix les plus votés et vos préférences dominantes.</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">🎯</div>
-                <div class="step-content">
-                    <h3>Accompagnement personnalisé</h3>
-                    <p>Sur la base de vos résultats, nous vous proposons un accompagnement sur-mesure pour explorer en profondeur les métiers identifiés et construire votre projet professionnel concret.</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">🚀</div>
-                <div class="step-content">
-                    <h3>Mise en action</h3>
-                    <p>Nous vous guidons dans les étapes concrètes : formations nécessaires, préparation aux entretiens, construction de votre réseau, et transition progressive vers votre nouveau métier.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Image Section: Personal Growth -->
-    <section style="padding: 4rem 5%; background: white;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
-                <!-- Texte -->
-                <div>
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-green); margin-bottom: 1.5rem;">Cultivez votre potentiel 🌱</h2>
-                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--soft-gray); margin-bottom: 1rem;">
-                        Comme une plante qui prend racine et grandit progressivement, votre parcours professionnel mérite d'être nourri avec soin.
-                    </p>
-                    <ul style="list-style: none; padding: 0; margin: 1.5rem 0;">
-                        <li style="padding: 0.8rem 0; display: flex; align-items: center; gap: 1rem;">
-                            <span style="font-size: 1.5rem;">🌱</span>
-                            <span style="color: var(--dark-text);">Découvrez vos forces naturelles</span>
-                        </li>
-                        <li style="padding: 0.8rem 0; display: flex; align-items: center; gap: 1rem;">
-                            <span style="font-size: 1.5rem;">🌿</span>
-                            <span style="color: var(--dark-text);">Explorez de nouvelles opportunités</span>
-                        </li>
-                        <li style="padding: 0.8rem 0; display: flex; align-items: center; gap: 1rem;">
-                            <span style="font-size: 1.5rem;">🌳</span>
-                            <span style="color: var(--dark-text);">Construisez une carrière épanouissante</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Image placeholder -->
-                <div style="background: linear-gradient(135deg, rgba(45, 95, 63, 0.05), rgba(107, 158, 120, 0.1)); border-radius: 20px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.1);">
-                    <!-- SVG illustration représentant la croissance -->
-                    <svg viewBox="0 0 400 300" style="width: 100%; height: 100%; padding: 2rem;">
-                        <!-- Pot de plante -->
-                        <path d="M 120 220 L 140 280 L 260 280 L 280 220 Z" fill="#d4a574" opacity="0.3"/>
-                        
-                        <!-- Terre -->
-                        <ellipse cx="200" cy="220" rx="90" ry="15" fill="#6b9e78" opacity="0.2"/>
-                        
-                        <!-- Tige principale -->
-                        <rect x="195" y="120" width="10" height="100" fill="#2d5f3f" opacity="0.4"/>
-                        
-                        <!-- Feuilles -->
-                        <ellipse cx="180" cy="180" rx="25" ry="15" fill="#6b9e78" opacity="0.5" transform="rotate(-30 180 180)"/>
-                        <ellipse cx="220" cy="160" rx="25" ry="15" fill="#6b9e78" opacity="0.5" transform="rotate(30 220 160)"/>
-                        <ellipse cx="175" cy="140" rx="30" ry="18" fill="#6b9e78" opacity="0.5" transform="rotate(-20 175 140)"/>
-                        <ellipse cx="225" cy="130" rx="30" ry="18" fill="#6b9e78" opacity="0.5" transform="rotate(20 225 130)"/>
-                        
-                        <!-- Fleur épanouie (symbolise l'accomplissement) -->
-                        <circle cx="200" cy="90" r="8" fill="#d4a574" opacity="0.6"/>
-                        <circle cx="190" cy="85" r="12" fill="#d4a574" opacity="0.4"/>
-                        <circle cx="210" cy="85" r="12" fill="#d4a574" opacity="0.4"/>
-                        <circle cx="195" cy="75" r="12" fill="#d4a574" opacity="0.4"/>
-                        <circle cx="205" cy="75" r="12" fill="#d4a574" opacity="0.4"/>
-                        <circle cx="200" cy="70" r="10" fill="#d4a574" opacity="0.5"/>
-                        
-                        <!-- Étoiles scintillantes (succès) -->
-                        <text x="150" y="60" font-size="20" opacity="0.3">✨</text>
-                        <text x="240" y="50" font-size="25" opacity="0.4">⭐</text>
-                        <text x="280" y="100" font-size="18" opacity="0.3">✨</text>
-                        
-                        <!-- Soleil (opportunités) -->
-                        <circle cx="320" cy="60" r="25" fill="#d4a574" opacity="0.2"/>
-                        <text x="320" y="70" text-anchor="middle" font-size="30" opacity="0.3">☀️</text>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="temoignages" class="testimonials">
-        <div class="section-header">
-            <h2>Ils nous font confiance</h2>
-            <p>Les témoignages de ceux qui ont trouvé leur voie avec nous</p>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text">"Le questionnaire m'a permis de découvrir des métiers auxquels je n'avais jamais pensé. Les résultats étaient étonnamment précis ! L'accompagnement personnalisé qui a suivi m'a aidé à me lancer avec confiance."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">SM</div>
-                    <div class="author-info">
-                        <h4>Sophie Martin</h4>
-                        <p>Reconversion dans le digital</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"En tant qu'étudiant perdu, le questionnaire a été un déclic. En 10 minutes, j'ai eu un classement clair de métiers qui me correspondent. J'ai ensuite pris rendez-vous pour approfondir mes résultats."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">TL</div>
-                    <div class="author-info">
-                        <h4>Thomas Leroy</h4>
-                        <p>Étudiant en école d'ingénieur</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"Les résultats du questionnaire m'ont révélé des aspects de ma personnalité professionnelle que je sous-estimais. Le top 3 des métiers proposés était très pertinent. J'ai ensuite bénéficié d'un accompagnement ciblé."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">CB</div>
-                    <div class="author-info">
-                        <h4>Claire Beaumont</h4>
-                        <p>Manager RH</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="contact" class="cta-section">
-        <div class="cta-content">
-            <h2>Prêt à découvrir votre voie ?</h2>
-            <p>Commencez le questionnaire gratuit pour identifier les métiers qui vous correspondent. Vos résultats s'affinent avec chaque réponse et évoluent avec vous.</p>
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-                <a href="questionnaire.html" class="btn btn-light">Notre questionnaire</a>
-                <a href="nous-soutenir.html" class="btn btn-light">💚 Nous soutenir</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Rooting For You</h3>
-                <p>Votre partenaire pour une orientation professionnelle réussie et épanouissante.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Services</h3>
-                <ul>
-                    <li><a href="questionnaire.html">Questionnaire d'orientation</a></li>
-                    <li><a href="#services">Accompagnement personnalisé</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>À propos</h3>
-                <ul>
-                    <li><a href="#process">Notre approche</a></li>
-                    <li><a href="#temoignages">Témoignages</a></li>
-                    <li><a href="#">L'équipe</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <ul>
-                    <li><a href="/cdn-cgi/l/email-protection#ee82979d83878d858f8b82ae89838f8782c08d8183"><span class="__cf_email__" data-cfemail="45293c36282c262e242029052228242c296b262a28">[email&#160;protected]</span></a></li>
-                    <li><a href="tel:+33616284591">06 16 28 45 91</a></li>
-                    <li>Tours, France</li>
-                    <li style="margin-top: 1rem;"><a href="nous-soutenir.html" style="color: #d4a574; font-weight: 600;">💚 Nous soutenir</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Rooting For You. Tous droits réservés. | Mentions légales | Politique de confidentialité</p>
-        </div>
-    </footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add scroll animation for service cards
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '0';
-                    entry.target.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        entry.target.style.transition = 'all 0.6s ease';
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 100);
-                    observer.unobserve(entry);
-                }
-            });
-        }, observerOptions);
-
-        const serviceCards = document.querySelectorAll('.service-card');
-        serviceCards.forEach(card => observer.observe(card));
-
-        // Hamburger Menu Toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('nav ul');
-        const navLinks = document.querySelectorAll('nav ul a');
-
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-
-            // Close menu when clicking a link
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('nav')) {
-                    menuToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                }
-            });
-        }
-
-        // Animated counter for user stats
+    <script>
+        // Animated counter
         function animateCounter() {
             const counter = document.getElementById('userCounter');
-            const target = 500; // Starting value, will be replaced by real DB count later
-            const duration = 2000; // 2 seconds
-            const step = target / (duration / 16); // 60fps
+            const target = 500;
+            const duration = 2000;
+            const step = target / (duration / 16);
             let current = 0;
 
             const timer = setInterval(() => {
@@ -1371,20 +266,8 @@
             }, 16);
         }
 
-        // Start counter animation when visible
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounter();
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        const userCounter = document.getElementById('userCounter');
-        if (userCounter) {
-            counterObserver.observe(userCounter);
-        }
+        // Start animation
+        setTimeout(animateCounter, 500);
     </script>
 </body>
 </html>
