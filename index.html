@@ -840,10 +840,43 @@
             gap: 2rem !important;
         }
 
+        section[style*="padding: 4rem 5%"],
+        section[style*="padding: 6rem 5%"] {
+            padding: 3rem 1.5rem !important;
+        }
+
+        /* Fix pour les stats visual card */
+        .visual-card {
+            padding: 2rem 1.5rem !important;
+        }
+
+        .stat-item {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Fix pour les grids avec repeat */
+        div[style*="grid-template-columns: repeat"] {
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
         /* ============================================
            TABLET (768px - 1024px)
            ============================================ */
         @media (min-width: 768px) {
+            section[style*="padding: 4rem 5%"],
+            section[style*="padding: 6rem 5%"] {
+                padding: 4rem 5% !important;
+            }
+
+            section div[style*="grid-template-columns: 1fr 1fr"] {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            div[style*="grid-template-columns: repeat"] {
+                display: grid !important;
+            }
             .services-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -1041,12 +1074,14 @@
             <p>Un accompagnement personnalisé à chaque étape de votre parcours professionnel</p>
         </div>
         <div class="services-grid">
-            <div class="service-card" style="border: 3px solid var(--primary-green);">
-                <span class="service-icon">🎯</span>
-                <h3>Questionnaire d'orientation</h3>
-                <p>Notre outil gratuit et évolutif qui s'adapte à vos changements de préférences au fil du temps. Choisissez entre des objets, lieux et actions du quotidien professionnel.</p>
-                <a href="questionnaire.html" style="display: inline-block; margin-top: 1rem; color: var(--primary-green); font-weight: 600; text-decoration: none;">Faire le test →</a>
-            </div>
+            <a href="questionnaire.html" style="text-decoration: none; color: inherit;">
+                <div class="service-card" style="border: 3px solid var(--primary-green); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <span class="service-icon">🎯</span>
+                    <h3>Questionnaire d'orientation</h3>
+                    <p>Notre outil gratuit et évolutif qui s'adapte à vos changements de préférences au fil du temps. Choisissez entre des objets, lieux et actions du quotidien professionnel.</p>
+                    <span style="display: inline-block; margin-top: 1rem; color: var(--primary-green); font-weight: 600;">Faire le test →</span>
+                </div>
+            </a>
             <div class="service-card">
                 <span class="service-icon">🤝</span>
                 <h3>Accompagnement personnalisé</h3>
