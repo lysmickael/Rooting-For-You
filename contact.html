@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Contact - Rooting For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #6b9e78;
+            --accent-gold: #d4a574;
+            --cream: #f8f5f0;
+            --dark-text: #2a2a2a;
+            --soft-gray: #707070;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: var(--dark-text);
+            background: var(--cream);
+            padding-top: 70px;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-icon { font-size: 1.8rem; }
+        
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .burger-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .burger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 70px;
+            right: -300px;
+            width: 280px;
+            height: calc(100vh - 70px);
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            z-index: 999;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        .side-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            color: var(--dark-text);
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .side-menu a:active {
+            background: var(--cream);
+        }
+
+        .side-menu a .menu-icon {
+            font-size: 1.5rem;
+            width: 30px;
+        }
+
+        .container {
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--soft-gray);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--cream);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-details h3 {
+            font-size: 1rem;
+            color: var(--primary-green);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p {
+            color: var(--soft-gray);
+            font-size: 0.95rem;
+        }
+
+        .contact-details a {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+            background: var(--light-green);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 0.5rem 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            color: var(--soft-gray);
+            font-size: 0.65rem;
+            padding: 0.5rem 0.3rem;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-icon {
+            font-size: 1.4rem;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7955446846545566" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <div class="logo-icon">🌱</div>
+            <div class="logo-text">Rooting For You</div>
+        </div>
+        <button class="burger-menu" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+    <div class="side-menu">
+        <a href="index.html"><span class="menu-icon">🏠</span> Accueil</a>
+        <a href="services.html"><span class="menu-icon">🎯</span> Services</a>
+        <a href="approche.html"><span class="menu-icon">📋</span> Approche</a>
+        <a href="questionnaire.html"><span class="menu-icon">📝</span> Questionnaire</a>
+        <a href="profil.html"><span class="menu-icon">👤</span> Mon profil</a>
+        <a href="contact.html"><span class="menu-icon">📞</span> Contact</a>
+        <a href="nous-soutenir.html"><span class="menu-icon">💚</span> Nous soutenir</a>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Nous contacter</h1>
+        <p class="page-subtitle">Une question ? Nous sommes là pour vous aider</p>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p><a href="mailto:lysmickael@gmail.com">lysmickael@gmail.com</a></p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div class="contact-details">
+                    <h3>Téléphone</h3>
+                    <p><a href="tel:0616284591">06 16 28 45 91</a></p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-details">
+                    <h3>Localisation</h3>
+                    <p>Tours, France</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary-green); margin-bottom: 1.5rem;">Envoyez-nous un message</h2>
+            
+            <form action="mailto:lysmickael@gmail.com" method="GET">
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="subject" placeholder="Votre nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="votre@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="body" placeholder="Votre message..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn">Envoyer le message</button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>Accueil</span>
+        </a>
+        <a href="services.html" class="nav-item">
+            <span class="nav-icon">🎯</span>
+            <span>Services</span>
+        </a>
+        <a href="approche.html" class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span>Approche</span>
+        </a>
+        <a href="contact.html" class="nav-item active">
+            <span class="nav-icon">📞</span>
+            <span>Contact</span>
+        </a>
+        <a href="nous-soutenir.html" class="nav-item">
+            <span class="nav-icon">💚</span>
+            <span>Soutenir</span>
+        </a>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            const burger = document.querySelector('.burger-menu');
+            const menu = document.querySelector('.side-menu');
+            const overlay = document.querySelector('.menu-overlay');
+            
+            burger.classList.toggle('active');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
