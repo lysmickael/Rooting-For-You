@@ -34,14 +34,19 @@
         /* Navigation */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(254, 253, 251, 0.95);
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1.5rem 5%;
-            border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(45, 95, 63, 0.15);
             animation: slideDown 0.6s ease-out;
+            border: 1px solid rgba(45, 95, 63, 0.1);
         }
 
         @keyframes slideDown {
@@ -72,17 +77,7 @@
             position: relative;
         }
 
-        .logo::after {
-            content: '🌱';
-            margin-left: 0.5rem;
-            display: inline-block;
-            animation: grow 2s ease-in-out infinite;
-        }
-
-        @keyframes grow {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
+        /* Animation grow removed - no plant emoji */
 
         nav ul {
             list-style: none;
@@ -119,7 +114,7 @@
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
+            margin-top: 40px;
             min-height: 90vh;
             display: flex;
             align-items: center;
@@ -651,7 +646,14 @@
             }
 
             nav {
-                padding: 1rem;
+                top: 10px;
+                width: calc(100% - 20px);
+                padding: 0.8rem 1.2rem;
+                border-radius: 30px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
             }
 
             nav ul {
@@ -782,9 +784,9 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="#" class="logo">Rooting For You</a>
+            <span class="logo">Rooting For You</span>
             <ul>
-                <li><a href="#services">Services</a></li>
+                <li><a href="#services">Nos services</a></li>
                 <li><a href="#process">Notre Approche</a></li>
                 <li><a href="#temoignages">Témoignages</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -800,8 +802,7 @@
                 <p class="subtitle">On vous accompagne vers l'avenir</p>
                 <p>Découvrez vos talents, explorez vos passions et construisez un parcours professionnel qui vous ressemble. Parce que chaque personne mérite de s'épanouir dans son travail.</p>
                 <div class="cta-buttons">
-                    <a href="questionnaire.html" class="btn btn-primary">Faire le test gratuit</a>
-                    <a href="#services" class="btn btn-secondary">Découvrir nos services</a>
+                    <a href="#services" class="btn btn-primary">Découvrir nos services</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -811,12 +812,12 @@
                         <p class="stat-label">Taux de satisfaction de nos accompagnés</p>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">500+</span>
-                        <p class="stat-label">Personnes accompagnées vers leur projet</p>
+                        <span class="stat-number" id="userCounter">0</span>
+                        <p class="stat-label">Utilisateurs ont trouvé leur voie</p>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">10+</span>
-                        <p class="stat-label">Années d'expertise en orientation</p>
+                        <span class="stat-number">✨</span>
+                        <p class="stat-label">Solution innovante d'orientation</p>
                     </div>
                 </div>
             </div>
@@ -897,7 +898,7 @@
                     <p style="opacity: 0.85; font-size: 0.95rem;">Sans engagement</p>
                 </div>
             </div>
-            <a href="questionnaire.html" class="btn" style="background: white; color: var(--primary-green); padding: 1.2rem 3rem; font-size: 1.2rem;">Démarrer le questionnaire →</a>
+            <a href="questionnaire.html" class="btn" style="background: white; color: var(--primary-green); padding: 1.2rem 3rem; font-size: 1.2rem;">Notre questionnaire →</a>
         </div>
     </section>
 
@@ -1073,7 +1074,7 @@
             <h2>Prêt à découvrir votre voie ?</h2>
             <p>Commencez le questionnaire gratuit pour identifier les métiers qui vous correspondent. Vos résultats s'affinent avec chaque réponse et évoluent avec vous.</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-                <a href="questionnaire.html" class="btn btn-light">Démarrer le questionnaire</a>
+                <a href="questionnaire.html" class="btn btn-light">Notre questionnaire</a>
                 <a href="nous-soutenir.html" class="btn btn-light">💚 Nous soutenir</a>
             </div>
         </div>
@@ -1148,4 +1149,47 @@
                         entry.target.style.opacity = '1';
                         entry.target.style.transform = 'translateY(0)';
                     }, index * 100);
-                    observer.unobserve(en
+                    observer.unobserve(entry);
+                }
+            });
+        }, observerOptions);
+
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => observer.observe(card));
+
+        // Animated counter for user stats
+        function animateCounter() {
+            const counter = document.getElementById('userCounter');
+            const target = 500; // Starting value, will be replaced by real DB count later
+            const duration = 2000; // 2 seconds
+            const step = target / (duration / 16); // 60fps
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    counter.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // Start counter animation when visible
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const userCounter = document.getElementById('userCounter');
+        if (userCounter) {
+            counterObserver.observe(userCounter);
+        }
+    </script>
+</body>
+</html>
