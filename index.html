@@ -30,7 +30,7 @@
             overflow-x: hidden;
         }
 
-        /* Header fixe */
+        /* Header avec burger */
         .header {
             position: fixed;
             top: 0;
@@ -40,6 +40,12 @@
             padding: 1rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
             display: flex;
             align-items: center;
             gap: 0.8rem;
@@ -56,49 +62,98 @@
             color: var(--primary-green);
         }
 
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 0.5rem 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .nav-item {
+        /* Burger menu */
+        .burger-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-            text-decoration: none;
-            color: var(--soft-gray);
-            font-size: 0.7rem;
-            padding: 0.5rem 0.8rem;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .burger-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 3px;
             transition: all 0.3s ease;
-            flex: 1;
         }
 
-        .nav-item.active {
-            color: var(--primary-green);
+        .burger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
         }
 
-        .nav-icon {
+        .burger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Side menu */
+        .side-menu {
+            position: fixed;
+            top: 70px;
+            right: -300px;
+            width: 280px;
+            height: calc(100vh - 70px);
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            z-index: 999;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        .side-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            color: var(--dark-text);
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .side-menu a:active {
+            background: var(--cream);
+        }
+
+        .side-menu a .menu-icon {
             font-size: 1.5rem;
+            width: 30px;
         }
 
-        /* Container principal */
+        /* Container */
         .container {
             width: 100%;
             padding: 0 1rem;
             margin: 0 auto;
         }
 
-        /* Hero Section */
         .hero {
             min-height: calc(100vh - 150px);
             display: flex;
@@ -189,17 +244,73 @@
             color: var(--soft-gray);
             font-size: 0.95rem;
         }
+
+        /* Bottom nav - 5 boutons */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 0.5rem 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            color: var(--soft-gray);
+            font-size: 0.65rem;
+            padding: 0.5rem 0.3rem;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: var(--primary-green);
+        }
+
+        .nav-icon {
+            font-size: 1.4rem;
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7955446846545566" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Header fixe -->
+    <!-- Header avec burger -->
     <div class="header">
-        <div class="logo-icon">🌱</div>
-        <div class="logo-text">Rooting For You</div>
+        <div class="logo-container">
+            <div class="logo-icon">🌱</div>
+            <div class="logo-text">Rooting For You</div>
+        </div>
+        <button class="burger-menu" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
-    <!-- Contenu principal -->
+    <!-- Overlay -->
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Side menu -->
+    <div class="side-menu">
+        <a href="index.html"><span class="menu-icon">🏠</span> Accueil</a>
+        <a href="services.html"><span class="menu-icon">🎯</span> Services</a>
+        <a href="approche.html"><span class="menu-icon">📋</span> Approche</a>
+        <a href="questionnaire.html"><span class="menu-icon">📝</span> Questionnaire</a>
+        <a href="profil.html"><span class="menu-icon">👤</span> Mon profil</a>
+        <a href="contact.html"><span class="menu-icon">📞</span> Contact</a>
+        <a href="nous-soutenir.html"><span class="menu-icon">💚</span> Nous soutenir</a>
+    </div>
+
+    <!-- Contenu -->
     <div class="container">
         <div class="hero">
             <h1>Trouvez votre voie professionnelle</h1>
@@ -209,7 +320,6 @@
             <a href="services.html" class="btn btn-secondary">Découvrir nos services</a>
         </div>
 
-        <!-- Stats -->
         <div class="stats">
             <div class="stat-card">
                 <span class="stat-number">95%</span>
@@ -226,7 +336,7 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom nav - 5 boutons -->
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item active">
             <span class="nav-icon">🏠</span>
@@ -240,16 +350,31 @@
             <span class="nav-icon">📋</span>
             <span>Approche</span>
         </a>
-        <a href="temoignages.html" class="nav-item">
-            <span class="nav-icon">💬</span>
-            <span>Avis</span>
+        <a href="contact.html" class="nav-item">
+            <span class="nav-icon">📞</span>
+            <span>Contact</span>
+        </a>
+        <a href="nous-soutenir.html" class="nav-item">
+            <span class="nav-icon">💚</span>
+            <span>Soutenir</span>
         </a>
     </nav>
 
     <script>
-        // Animated counter
+        function toggleMenu() {
+            const burger = document.querySelector('.burger-menu');
+            const menu = document.querySelector('.side-menu');
+            const overlay = document.querySelector('.menu-overlay');
+            
+            burger.classList.toggle('active');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
         function animateCounter() {
             const counter = document.getElementById('userCounter');
+            if (!counter) return;
+            
             const target = 500;
             const duration = 2000;
             const step = target / (duration / 16);
@@ -266,7 +391,6 @@
             }, 16);
         }
 
-        // Start animation
         setTimeout(animateCounter, 500);
     </script>
 </body>
